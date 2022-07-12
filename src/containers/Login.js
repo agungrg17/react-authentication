@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -23,6 +24,8 @@ const Login = () => {
     };
 
     return (
+        <>
+        <Navbar />
         <Container component="main" maxWidth="xs">
             <Box
                 sx={{
@@ -77,6 +80,7 @@ const Login = () => {
                 </Box>
             </Box>
         </Container>
+        </>
     );
 }
 

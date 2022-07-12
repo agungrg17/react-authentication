@@ -9,18 +9,25 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../config/Firebase';
 
 const Login = () => {
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = React.useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-        navigate('/');
+        const email = data.get('email');
+        const password = data.get('password');
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            navigate("/");
+        } catch (error) {
+            setErrorMessage(error.message);
+        }
     };
 
     return (
@@ -62,6 +69,7 @@ const Login = () => {
                         id="password"
                         autoComplete="current-password"
                     />
+                    <Typography color='red'>{errorMessage}</Typography>
                     <Button
                         type="submit"
                         fullWidth

@@ -27,6 +27,7 @@ import {
 // Karena kita sudah membuat fungsi kita sendiri
 // maka kita hanya perlu menggunakan hooks useAuthState saja
 import { useAuthState } from "react-firebase-hooks/auth";
+import NavBar from "./NavBar";
 
 const LoginOrRegisterForm = ({ loginOrRegister }) => {
   // gunakan hooks useNavigate
@@ -43,7 +44,7 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
   // user: akan mengembalikan auth.User apabila ada yang log in, dan null bila tidak ada
   // loading: boolean yang digunakan sebagai indikator apakah firebasenya sedang menunggu login
   // error: bila ada error yang diberikan
-  const [user, isLoading, error] = useAuthState(auth);
+  const [user, isLoading] = useAuthState(auth);
 
 
   const [credential, setCredential] = useState({
@@ -122,6 +123,8 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
   );
 
   return (
+    <>
+    <NavBar />
     <Grid
       container
       spacing={0}
@@ -172,6 +175,7 @@ const LoginOrRegisterForm = ({ loginOrRegister }) => {
         )}
       </Box>
     </Grid>
+    </>
   );
 };
 

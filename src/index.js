@@ -13,15 +13,25 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './containers/Login';
 import Register from './containers/Register';
 import NoMatch from './containers/NoMatch';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} ></Route>
-        <Route path="login" element={<Login />} ></Route>
-        <Route path="register" element={<Register />} ></Route>
+        <Route path="/" element={
+        <ProtectedRoute>
+          <App />
+        </ProtectedRoute>}/>
+        <Route path="login" element={
+          <ProtectedRoute loginOnly={false}>
+            <Login />
+          </ProtectedRoute>} />
+        <Route path="register" element={
+          <ProtectedRoute loginOnly={false}>
+            <Register />
+          </ProtectedRoute>} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </BrowserRouter>

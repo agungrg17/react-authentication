@@ -6,13 +6,21 @@ import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 // beralih ke halaman Login
 import { useNavigate } from "react-router-dom";
 
+// Import fungsi untuk melakukan Logout
+import { keluarDariApps } from "../authentication/firebase";
+
 import styles from "./NavBar.module.css";
 
 const NavBar = () => {
   // Gunakan hooks useNavigate
   const navigate = useNavigate();
 
-  const buttonLogoutOnClickHandler = () => {
+// Fungsi ini akan menjadi async await
+  // Karena keluarDariApps bersifat async, dan kita harus menunggu
+  // keluarDariAppsSelesai, baru boleh navigate
+  const buttonLogoutOnClickHandler = async () => {
+    // Kita akan memanggil fungsi keluarDariApps di sini
+    await keluarDariApps();
     navigate("/login");
   };
 
